@@ -1,5 +1,4 @@
-﻿#include <ShlObj.h>
-#include <patch.h>
+﻿#include <patch.h>
 #include <string>
 
 HMODULE D3D9Module;
@@ -12,15 +11,7 @@ __declspec(naked) void *WINAPI Direct3DCreate9_stub(UINT SDKVersion)
 
 void LoadD3D9()
 {
-    WCHAR *szSystemPath = nullptr;
-
-    SHGetKnownFolderPath(FOLDERID_System, 0, NULL, &szSystemPath);
-
-    std::wstring wstr = szSystemPath;
-
-    CoTaskMemFree(szSystemPath);
-
-    D3D9Module        = LoadLibraryW((wstr + L"\\d3d9.dll").c_str());
+    D3D9Module        = LoadSystemLibrary(L"\\d3d9.dll");
     fnDirect3DCreate9 = GetProcAddress(D3D9Module, "Direct3DCreate9");
 }
 

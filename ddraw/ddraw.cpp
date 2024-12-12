@@ -12,15 +12,7 @@ __declspec(naked) void *WINAPI DirectDrawCreate_stub(UINT SDKVersion)
 
 void LoadDDRAW()
 {
-    WCHAR *szSystemPath = nullptr;
-
-    SHGetKnownFolderPath(FOLDERID_System, 0, NULL, &szSystemPath);
-
-    std::wstring wstr = szSystemPath;
-
-    CoTaskMemFree(szSystemPath);
-
-    DDRAWModule        = LoadLibraryW((wstr + L"\\ddraw.dll").c_str());
+    DDRAWModule        = LoadSystemLibrary(L"\\ddraw.dll");
     fnDirectDrawCreate = GetProcAddress(DDRAWModule, "DirectDrawCreate");
 }
 

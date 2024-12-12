@@ -4,6 +4,7 @@
 #include <chrono>
 #include <filesystem>
 #include <optional>
+#include <ShlObj.h>
 
 // 提高Sleep函数的精度
 class time_period_guard
@@ -75,6 +76,18 @@ DWORD WINAPI accurate_timeGetTime()
     return static_cast<DWORD>(std::chrono::duration_cast<std::chrono::milliseconds>(
                                   std::chrono::steady_clock::now() - std::chrono::steady_clock::time_point{})
                                   .count());
+}
+
+HMODULE LoadSystemLibrary(const wchar_t *filename){
+    wchar_t *szSystemPath = nullptr;
+
+    SHGetKnownFolderPath(FOLDERID_System, 0, NULL, &szSystemPath);
+
+    std::wstring wstr = szSystemPath;
+
+    CoTaskMemFree(szSystemPath);
+
+    return LoadLibraryW((wstr + filename).c_str());
 }
 
 UINT ReadInterval(HMODULE module)

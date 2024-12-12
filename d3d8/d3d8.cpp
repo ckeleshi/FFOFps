@@ -12,15 +12,7 @@ __declspec(naked) void *WINAPI Direct3DCreate8_stub(UINT SDKVersion)
 
 void LoadD3D8()
 {
-    WCHAR *szSystemPath = nullptr;
-
-    SHGetKnownFolderPath(FOLDERID_System, 0, NULL, &szSystemPath);
-
-    std::wstring wstr = szSystemPath;
-
-    CoTaskMemFree(szSystemPath);
-
-    D3D8Module        = LoadLibraryW((wstr + L"\\d3d8.dll").c_str());
+    D3D8Module        = LoadSystemLibrary(L"\\d3d8.dll");
     fnDirect3DCreate8 = GetProcAddress(D3D8Module, "Direct3DCreate8");
 }
 
