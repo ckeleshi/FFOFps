@@ -36,7 +36,7 @@ class inprocess_singleton
     {
         wchar_t mutex_name_buffer[MAX_PATH];
 
-        std::swprintf(mutex_name_buffer, L"FFOPATCHER_MUTEX_%u", GetCurrentProcessId());
+        std::swprintf(mutex_name_buffer, L"FFOFPS_MUTEX_%u", GetCurrentProcessId());
 
         auto mutex = CreateMutexW(nullptr, FALSE, mutex_name_buffer);
 
@@ -97,9 +97,9 @@ UINT ReadInterval(HMODULE module)
 
     GetModuleFileNameW(module, cPath, MAX_PATH);
     cppPath = cPath;
-    cppPath = cppPath.parent_path() / L"ffopatcher.ini";
+    cppPath = cppPath.parent_path() / L"FFOFPS.ini";
 
-    return std::clamp(GetPrivateProfileIntW(L"FFOPatcher", L"FrameInterval", 15u, cppPath.wstring().c_str()), 0u, 29u);
+    return std::clamp(GetPrivateProfileIntW(L"FFOFPS", L"FrameInterval", 15u, cppPath.wstring().c_str()), 0u, 29u);
 }
 
 void Patch(HMODULE module)
