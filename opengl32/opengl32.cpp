@@ -1849,7 +1849,7 @@ __declspec(naked) void wglUseFontOutlinesW_stub()
 
 void LoadOpenGL32()
 {
-    OpenGL32Module        = LoadSystemLibrary(L"\\opengl32.dll");
+    OpenGL32Module        = LoadSystemLibrary(L"opengl32.dll");
     OpenGL32ModuleAddress = reinterpret_cast<std::uintptr_t>(OpenGL32Module);
 
     fnGlmfBeginGlsBlock         = GetProcAddress(OpenGL32Module, "GlmfBeginGlsBlock");

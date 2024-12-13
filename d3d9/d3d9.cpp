@@ -11,7 +11,7 @@ __declspec(naked) void *WINAPI Direct3DCreate9_stub(UINT SDKVersion)
 
 void LoadD3D9()
 {
-    D3D9Module        = LoadSystemLibrary(L"\\d3d9.dll");
+    D3D9Module        = LoadSystemLibrary(L"d3d9.dll");
     fnDirect3DCreate9 = GetProcAddress(D3D9Module, "Direct3DCreate9");
 }
 

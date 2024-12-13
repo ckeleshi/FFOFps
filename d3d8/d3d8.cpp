@@ -12,7 +12,7 @@ __declspec(naked) void *WINAPI Direct3DCreate8_stub(UINT SDKVersion)
 
 void LoadD3D8()
 {
-    D3D8Module        = LoadSystemLibrary(L"\\d3d8.dll");
+    D3D8Module        = LoadSystemLibrary(L"d3d8.dll");
     fnDirect3DCreate8 = GetProcAddress(D3D8Module, "Direct3DCreate8");
 }
 

@@ -12,7 +12,7 @@ __declspec(naked) void *WINAPI DirectDrawCreate_stub(UINT SDKVersion)
 
 void LoadDDRAW()
 {
-    DDRAWModule        = LoadSystemLibrary(L"\\ddraw.dll");
+    DDRAWModule        = LoadSystemLibrary(L"ddraw.dll");
     fnDirectDrawCreate = GetProcAddress(DDRAWModule, "DirectDrawCreate");
 }
 

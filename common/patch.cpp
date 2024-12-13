@@ -1,10 +1,10 @@
 ﻿#include "patch.h"
 #include "byte_pattern.h"
 #include "injector/hooking.hpp"
+#include <ShlObj.h>
 #include <chrono>
 #include <filesystem>
 #include <optional>
-#include <ShlObj.h>
 
 // 提高Sleep函数的精度
 class time_period_guard
@@ -78,16 +78,18 @@ DWORD WINAPI accurate_timeGetTime()
                                   .count());
 }
 
-HMODULE LoadSystemLibrary(const wchar_t *filename){
+HMODULE LoadSystemLibrary(const wchar_t *filename)
+{
     wchar_t *szSystemPath = nullptr;
 
     SHGetKnownFolderPath(FOLDERID_System, 0, NULL, &szSystemPath);
 
-    std::wstring wstr = szSystemPath;
+    std::filesystem::path path = szSystemPath;
 
     CoTaskMemFree(szSystemPath);
 
-    return LoadLibraryW((wstr + filename).c_str());
+    // SHGetKnownFolderPath结果没有反斜杠的
+    return LoadLibraryW((path / filename).c_str());
 }
 
 UINT ReadInterval(HMODULE module)
