@@ -97,7 +97,7 @@ static void WINAPI FPSSleep(DWORD dwMilliseconds)
 
     while (now < next_process_time.value())
     {
-        if (next_process_time.value() - now > std::chrono::milliseconds(1))
+        if (next_process_time.value() - now > std::chrono::milliseconds(2))
         {
             Sleep(1);
         }
